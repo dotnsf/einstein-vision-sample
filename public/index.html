@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<title>Einstein Vision</title>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script>
+$(function(){
+});
+
+function classify(){
+  var model = $('#model').val();
+  var url = $('#url').val();
+  vision( model, url );
+}
+
+function vision( model, url ){
+  if( model && url ){
+    $.ajax({
+      url: '/vision',
+      method: 'POST',
+      data: { model: model, url: url },
+      success: function( result ){
+        console.log( result );
+        $('#result-table-body').html( '' );
+        if( result && result.body && result.body.probabilities && result.body.probabilities.length ){
+          for( var i = 0; i < result.body.probabilities.length; i ++ ){
+            var probability = result.body.probabilities[i];
+            var tr = '<tr>'
+              + '<td>' + probability.probability + '</td>'
+              + '<td>' + probability.label + '</td>'
+              + '</tr>';
+            $('#result-table-body').append( tr );
+          }
+        }
+      },
+      error: function( e0, e1, e2 ){
+        console.log( e0, e1, e2 );
+      }
+    });
+  }else{
+    alert( 'No model and/or url.' );
+  }
+}
+</script>
+</head>
+<body>
+
+<div class="container">
+  <select id="model" class="form-control">
+    <option value="GeneralImageClassifier" selected>GeneralImageClassifier</option>
+    <option value="FoodImageClassifier">FoodImageClassifier</option>
+    <!-- <option value="SceneImageClassifier">SceneImageClassifier</option> -->
+    <option value="MultiLabelImageClassifier">MultiLabelImageClassifier</option>
+  </select>
+  <input type="text" id="url" placeholder="URL" class="form-control" value=""/>
+  <button class="btn btn-primary" onClick="classify();">Vision</button>
+</div>
+
+<div class="container">
+  <table id="result-table" class="table table-bordered">
+    <thead id="result-table-head">
+      <tr><th>#</th><th>label</th></tr>
+    </thead>
+    <tbody id="result-table-body">
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+
+

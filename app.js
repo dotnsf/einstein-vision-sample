@@ -1,5 +1,7 @@
 //. app.js
 var express = require( 'express' ),
+    bodyParser = require( 'body-parser' ),
+    //ejs = require( 'ejs' ),
     jwt = require( 'jsonwebtoken' ),
     request = require( 'request' ),
     app = express();
@@ -52,16 +54,23 @@ if( settings_einstein_vision_account_id && settings_einstein_vision_url && setti
   });
 }
 
+app.use( bodyParser.urlencoded( { extended: true } ) );
+app.use( bodyParser.json() );
 app.use( express.Router() );
+app.use( express.static( __dirname + '/public' ) );
 
-app.get( '/', async function( req, res ){
+//app.set( 'views', __dirname + '/views' );
+//app.set( 'view engine', 'ejs' );
+
+app.post( '/vision', async function( req, res ){
   res.contentType( 'application/json; charset=utf-8' );
 
   if( access_token ){
-    var url = req.query.url ? req.query.url : '';
+    var model = req.body.model ? req.body.model : 'GeneralImageClassifier';
+    var url = req.body.url ? req.body.url : '';
     if( url ){
       var form_data = {
-        modelId: 'GeneralImageClassifier',
+        modelId: model,
         sampleLocation: url
       };
       var option = {

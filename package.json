@@ -1,0 +1,16 @@
+{
+    "name": "einstein-vision-sample",
+    "version": "0.0.1",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "express": "4.17.x",
+        "jsonwebtoken": "^8.5.1",
+        "request": "^2.88.2"
+    },
+    "repository": {},
+    "engines": {
+        "node": "14.x"
+    }
+}

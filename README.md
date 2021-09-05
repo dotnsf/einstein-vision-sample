@@ -25,9 +25,14 @@ Sample application which would use **Einstein Vision**.
 
 - Access to following URL with web browser:
 
-  - `http://localhost:8080/?url=(image url)`
+  - `http://localhost:8080/`
 
-- You will see predicted categories by Einstein Vision.
+- Select model, input url of image, and click **Vision** button. You will see predicted categories by Einstein Vision.
+
+
+## References
+
+https://metamind.readme.io/docs/use-pre-built-models
 
 
 ## Licensing

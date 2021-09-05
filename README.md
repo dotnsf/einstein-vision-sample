@@ -9,17 +9,25 @@ Sample application which would use **Einstein Vision**.
 
 - Install Node.js
 
-- Git clone or Download this source code
+- Git clone or Download this source code:
 
-- `$ cd einstein-vision-sample`
+  - `$ cd einstein-vision-sample`
 
-- `$ npm install`
+- Install dependent libraries with `npm`:
 
-- `$ node app`
+  - `$ npm install`
+
+- Edit `settings.js` with your `Einstein credentials`.
+
+- Run application with `node`:
+
+  - `$ node app`
 
 - Access to following URL with web browser:
 
   - `http://localhost:8080/?url=(image url)`
+
+- You will see predicted categories by Einstein Vision.
 
 
 ## Licensing
